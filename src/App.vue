@@ -1,19 +1,30 @@
 <template>
   <div id="counter">
-    {{ count }}
+    {{ state.foo }}
+    {{ state.nested.bar }}
   </div>
-  <button @click="increment">increment</button>
+  <button @click="incrementFoo">increment</button>
+  <button @click="incrementBar">increment</button>
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
+import { ref, shallowReactive, isReactive } from 'vue'
 
-const count = ref(0)
+const state = shallowReactive({
+  foo: 1,
+  nested: {
+    bar: 1
+  }
+})
 
-async function increment() {
-  count.value++
-  console.log(document.getElementById('counter')!.textContent)
-  await nextTick()
-  console.log(document.getElementById('counter')!.textContent)
+console.log(isReactive(state.nested))
+
+state.nested.bar++
+
+async function incrementFoo() {
+  state.foo++
+}
+async function incrementBar() {
+  state.nested.bar++
 }
 </script>
