@@ -1,30 +1,19 @@
 <template>
   <div id="counter">
-    {{ state.foo }}
-    {{ state.nested.bar }}
   </div>
-  <button @click="incrementFoo">increment</button>
-  <button @click="incrementBar">increment</button>
 </template>
 
 <script setup lang="ts">
-import { ref, shallowReactive, isReactive } from 'vue'
+import { ref, reactive, shallowReactive, isReactive } from 'vue'
 
-const state = shallowReactive({
-  foo: 1,
-  nested: {
-    bar: 1
-  }
-})
+const raw = {}
+const proxy = reactive(raw)
 
-console.log(isReactive(state.nested))
+console.log(proxy === raw)
+console.log(reactive(raw) === proxy)
+console.log(reactive(proxy) === proxy)
 
-state.nested.bar++
-
-async function incrementFoo() {
-  state.foo++
-}
-async function incrementBar() {
-  state.nested.bar++
-}
+const proxy2 = reactive({})
+proxy2.nested = raw
+console.log(proxy.nested === raw)
 </script>
