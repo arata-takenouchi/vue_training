@@ -1,19 +1,23 @@
 <template>
   <div id="counter">
+    {{ alwaysSmall }}
   </div>
+  <button @click="addCount">add count</button>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, shallowReactive, isReactive } from 'vue'
+import { computed, ref } from 'vue'
 
-const raw = {}
-const proxy = reactive(raw)
+const count = ref(2)
 
-console.log(proxy === raw)
-console.log(reactive(raw) === proxy)
-console.log(reactive(proxy) === proxy)
+const alwaysSmall = computed((previous) => {
+  if (count.value <= 3) {
+    return count.value
+  }
+  return previous
+})
 
-const proxy2 = reactive({})
-proxy2.nested = raw
-console.log(proxy.nested === raw)
+const addCount = () => {
+  count.value += 1
+}
 </script>
