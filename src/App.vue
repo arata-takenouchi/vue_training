@@ -1,12 +1,20 @@
 <template>
-  <div id="counter">
+  <div
+    id="counter">
     {{ alwaysSmall }}
   </div>
+  <input ref="inputRef" type="text">
   <button @click="addCount">add count</button>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { useTemplateRef, onMounted, computed, ref } from 'vue'
+
+const input = useTemplateRef('inputRef')
+
+onMounted(() => {
+  input.value!.focus()
+})
 
 const count = ref(2)
 
