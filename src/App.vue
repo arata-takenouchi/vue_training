@@ -1,31 +1,18 @@
 <template>
-  <div
-    id="counter">
-    {{ alwaysSmall }}
-  </div>
-  <input ref="inputRef" type="text">
-  <button @click="addCount">add count</button>
+	<BlogPost
+  	v-for="post in posts"
+	  :key="post.id"
+  	:title="post.title"
+	></BlogPost>
 </template>
 
-<script setup lang="ts">
-import { useTemplateRef, onMounted, computed, ref } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import BlogPost from './BlogPost.vue'
 
-const input = useTemplateRef('inputRef')
-
-onMounted(() => {
-  input.value!.focus()
-})
-
-const count = ref(2)
-
-const alwaysSmall = computed((previous) => {
-  if (count.value <= 3) {
-    return count.value
-  }
-  return previous
-})
-
-const addCount = () => {
-  count.value += 1
-}
+const posts = ref([
+  { id: 1, title: 'My journey with Vue' },
+  { id: 2, title: 'Blogging with Vue' },
+  { id: 3, title: 'Why Vue is so fun' }
+])
 </script>
