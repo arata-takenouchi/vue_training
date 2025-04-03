@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { ref, watch, provide, readonly } from 'vue'
 import BlogPost from './BlogPost.vue'
 import Test from './Test.vue'
 
@@ -25,6 +25,8 @@ const firstName = ref('arata')
 const lastName = ref('takenouchi')
 // const [modelValue, modelModifires] = defineModel()
 const capitalizeModel = ref('capitalizeModel')
+
+provide('countModel', readonly(countModel))
 
 const posts = ref([
   { id: 1, title: 'My journey with Vue' },
