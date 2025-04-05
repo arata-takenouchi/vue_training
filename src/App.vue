@@ -16,9 +16,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, provide, readonly } from 'vue'
+import { ref, watch, provide, readonly, onRenderTracked, onRenderTriggered } from 'vue'
 import BlogPost from './BlogPost.vue'
 import Test from './Test.vue'
+
+onRenderTracked((e) => {
+  debugger
+})
+onRenderTriggered((e) => {
+  debugger
+})
 
 const countModel = ref(1)
 const firstName = ref('arata')
