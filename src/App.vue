@@ -5,6 +5,7 @@
   	:title="post.title"
 	></BlogPost> -->
   {{ firstName }} {{ lastName }} {{ capitalizeModel }}
+  {{ count }} {{ plusOne }}
   <Test
     v-model="countModel"
     v-model:first-name="firstName"
@@ -16,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, provide, readonly, onRenderTracked, onRenderTriggered } from 'vue'
+import { ref, watch, provide, readonly, onRenderTracked, onRenderTriggered, watchEffect, computed } from 'vue'
 import BlogPost from './BlogPost.vue'
 import Test from './Test.vue'
 
@@ -33,7 +34,40 @@ const lastName = ref('takenouchi')
 // const [modelValue, modelModifires] = defineModel()
 const capitalizeModel = ref('capitalizeModel')
 
+const count = ref(1)
+
 provide('countModel', readonly(countModel))
+
+const plusOne = computed(() => count.value + 1, {
+  onTrack(e) {
+    debugger
+  },
+  onTrigger(e) {
+    debugger
+  }
+})
+
+console.log(plusOne.value)
+
+count.value += 1
+
+// watch(source, callback, {
+//   onTrack(e) {
+//     debugger
+//   },
+//   onTrigger(e) {
+//     debugger
+//   }
+// })
+
+// watchEffect(callback, {
+//   onTrack(e) {
+//     debugger
+//   },
+//   onTrigger(e) {
+//     debugger
+//   }
+// })
 
 const posts = ref([
   { id: 1, title: 'My journey with Vue' },
