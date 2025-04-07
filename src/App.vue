@@ -75,6 +75,20 @@ const posts = ref([
   { id: 3, title: 'Why Vue is so fun' }
 ])
 
+const shallowArray = shallowRef([])
+
+shallowArray.value.push(newObj)
+shallowArray.value = [...shallowArray.value, newObj]
+
+shallowArray.value[0].foo = 1
+shallowArray.value = [
+  {
+    ...shallowArray.value[0],
+    foo: 1
+  },
+  ...shallowArray.value.slice(1)
+]
+
 function update() {
   countModel.value += 1
 }
