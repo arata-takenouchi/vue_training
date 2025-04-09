@@ -11,6 +11,10 @@
     v-model:first-name="firstName"
     v-model:last-name="lastName"
     v-model:capitalize-model.capitalize="capitalizeModel" />
+  <KeepAlive>
+    <ActiveComponent :is="active" />
+    <InactiveComponent :is="!active" />
+  </KeepAlive>
   <div>
     <button @click="update">Increment In Parent</button>
   </div>
@@ -35,6 +39,7 @@ const lastName = ref('takenouchi')
 const capitalizeModel = ref('capitalizeModel')
 
 const count = ref(1)
+const active = ref(false)
 
 provide('countModel', readonly(countModel))
 
