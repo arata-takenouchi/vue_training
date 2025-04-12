@@ -19,13 +19,16 @@
     <button @click="update">Increment In Parent</button>
   </div>
   <Teleport :is-open="open" @close="open = false" />
+  <div>
+    {{ store.count }}
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, watch, provide, readonly, onRenderTracked, onRenderTriggered, watchEffect, computed } from 'vue'
-import BlogPost from './BlogPost.vue'
 import Test from './Test.vue'
 import Teleport from './Teleport.vue'
+import { store } from './store'
 
 onRenderTracked((e) => {
   debugger

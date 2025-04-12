@@ -14,11 +14,14 @@
   <div>
     countModel: {{ countModel }}
   </div>
+  <div>
+    {{ store.count }}
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { inject } from 'vue'
-
+import { store } from './store'
 
 
 const model = defineModel({required: true})
