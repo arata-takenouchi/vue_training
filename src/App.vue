@@ -50,6 +50,25 @@ const open = ref(false)
 
 provide('countModel', readonly(countModel))
 
+const isEven = computed(() => count.value % 2 === 0)
+
+const computedObj = computed((oldValue) => {
+  // bad
+  // return {
+  //   isEven: count.value % 2 === 0
+  // }
+
+  // good
+  const newValue = {
+    isEven: count.value % 2 === 0
+  }
+  if (oldValue && oldValue.isEven === newValue.isEven) {
+    return oldValue
+  }
+  return newValue
+})
+
+
 const plusOne = computed(() => count.value + 1, {
   onTrack(e) {
     debugger
