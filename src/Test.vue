@@ -38,6 +38,24 @@ const [capitalizeModel, modifiers] = defineModel('capitalizeModel', {
 const AppProvider = inject('AppProvider')
 const countModel = inject('countModel')
 
+const emit = defineEmits({
+  click: null,
+
+  // emitのvalidationが可能
+  submit: ({ email, password }) => {
+    if (email && password) {
+      return true
+    } else {
+      console.error('Invalid email or password')
+      return false
+    }
+  }
+})
+
+function submit(email, password) {
+  emit('submit', { email, password })
+}
+
 function update() {
   model.value += 1
 }
