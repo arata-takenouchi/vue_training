@@ -3,16 +3,17 @@ import { inject } from 'vue'
 import { useRoute } from 'vue-router'
 import { defineStore } from 'pinia'
 
-export const useCounterStore = defineStore('counter', () => {
-  const route = useRoute()
-  const appProvided = inject('appProvided')
-
-  const count = ref(0)
-  const name = ref('Eduardo')
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
+// 引数を受け取れるgetter
+export const useCounterStore = defineStore('getter', {
+  getters: {
+    // 値をキャッシュすることはできなくなる（ただの関数と同じ）
+    getUserById: (state) => {
+      // ただ、getterの中に計算結果をキャッシュしておくことはできる（純関数ならアリかも）
+      const activeUsers = state.users.filter((user) => user.active)
+      return (userId: number) => state.users.find((user) => user.id === userId)
+    },
   }
-
-  return { count, name, doubleCount, increment }
 })
+
+// useCase
+getUserById(2)
